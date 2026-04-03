@@ -223,30 +223,36 @@ class __RateLimiter:
 __Filename = Path(sys.modules['__main__'].__file__).stem if hasattr(sys.modules['__main__'], '__file__') else "log"
 __root_dir = Path(__file__).resolve().parent.parent
 __FolderPath = __root_dir / "logs" / "API"
-__Rl=__RateLimiter(filename=__Filename,folder=__FolderPath)
-def __Ratelimiter(IP_Adrs:str,Cleaning=False,
-                CooldownTime=20,AllowedFreq=8,CleaningFreq=80,ResetTime=8,Filename=__Filename,Folder=__FolderPath)->int:
-    global __Rl
 
-    if ((Filename!=__Filename)or (Folder!=__FolderPath)):
-        __Rl = __RateLimiter(filename=__Filename, folder=__FolderPath)
+# __RateL=__RateLimiter(filename=__Filename,folder=__FolderPath)
+def __RL(IP_Adrs:str,Cleaning=False,
+                CooldownTime=20,AllowedFreq=8,CleaningFreq=80,ResetTime=8,Filename=None,Folder=None)->int:
+    # global __RateL
+    # print(__Filename)
+    # if ((Filename!=__Filename)or (Folder!=__FolderPath)):
+    Filename = Filename or __Filename
+    Folder = Folder or __FolderPath
+    __RateL = __RateLimiter(filename=Filename, folder=Folder)
+
 
     
-    return (__Rl.API_RL(IP_Adrs=IP_Adrs,Cleaning=Cleaning,
+    return (__RateL.API_RL(IP_Adrs=IP_Adrs,Cleaning=Cleaning,
                CooldownTime=CooldownTime,AllowedFreq=AllowedFreq,CleaningFreq=CleaningFreq,ResetTime=ResetTime))
     
 
 
 def RequiredRateLimiter(Cleaning=False,
-                CooldownTime=20,AllowedFreq=8,CleaningFreq=80,ResetTime=8,Filename=None,FolderPath=None,FileType=".json"):
+                CooldownTime=20,AllowedFreq=8,CleaningFreq=80,ResetTime=8,Filename=None,Folder=None,FileType=".json"):
         # target_folder = FolderPath if FolderPath is not None else __FolderPath
         def Decorator(Func):
             def Wrapper(*args,**kwargs):
                 Ip=request.remote_addr
                 # Ip="12"
-
-                CoolDown=__Ratelimiter(IP_Adrs=Ip,*args,**kwargs)
-
+                Filename=Func.__name__
+                # print(Filename)
+                # CoolDown=__RL(IP_Adrs=Ip,*args,**kwargs)
+                CoolDown= __RL(IP_Adrs=Ip,Cleaning=Cleaning,Filename=Filename,Folder=Folder,
+               CooldownTime=CooldownTime,AllowedFreq=AllowedFreq,CleaningFreq=CleaningFreq,ResetTime=ResetTime)
                 if CoolDown==1:
                     return Func(*args, **kwargs)
                 else:
