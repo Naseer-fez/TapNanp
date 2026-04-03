@@ -3,7 +3,7 @@ from models.LoginSql import db
 from models.LinksTable import Links #Just so the table is  created early
 from dotenv import load_dotenv
 import os 
-from utils.APIRateLimit import RequiredRateLimiter
+from routes.LoginPage.Login import LoginBP
 load_dotenv()
 app=Flask(__name__)
 
@@ -19,9 +19,9 @@ except Exception as e:
     print(e)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db' ##Trace back Database
 
-
 app.secret_key=os.getenv("SECRETKEY")
 db.init_app(app)
+app.register_blueprint(LoginBP)
 try:
     with app.app_context():
             db.create_all()
@@ -30,10 +30,5 @@ except Exception as e:
 
 if __name__=="__main__":
 
-    @app.route("/")
-    @RequiredRateLimiter(Filename="Hii")
-    def home(): #Test
-        return "HIII"
-    
     app.run()
     # print()
