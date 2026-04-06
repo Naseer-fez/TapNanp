@@ -10,3 +10,8 @@ ___
 ### The planning this week  is to Create all the required databases schemas so that the actual backend can work properly
 ###  Earlier i thought to use MongoDB for the arrays , but now i have decided to use SQL for this 
 #### As this use just increases the computation , and brings no real benfit into the system.
+
+## Week -2
+___
+### THis weeks plan is to Create the Create Account and Login page 
+### The Backend Implementation of the Main page 
