@@ -26,3 +26,4 @@ Thumbs.db
 test.py
 
 routes\CreateAccount\Helper.py
+routes\LinkPage\TransferDB.py
