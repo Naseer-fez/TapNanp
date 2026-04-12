@@ -30,17 +30,15 @@ def CreateApp():
     DatabaseName=os.getenv("DataBaseName")
 
     try:
-        # app.config['SQLALCHEMY_DATABASE_URI']=os.getenv("SupaBase")
-        # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-        app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{DatbaseUserName}:{DatabasePassword}@{DatabaseHost}/{DatabaseName}"
+        app.config['SQLALCHEMY_DATABASE_URI']=os.getenv("Database")
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+        # app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{DatbaseUserName}:{DatabasePassword}@{DatabaseHost}/{DatabaseName}"
         #  app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://root:{Database}@localhost/tapnap"
     except Exception as e:
         print(e)
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db' ##Trace back Database
     Key=os.getenv("SECRETKEY")
     app.secret_key=Key
-    from itsdangerous import URLSafeSerializer
-    Serializer=URLSafeSerializer(app.secret_key)
     db.init_app(app)
 
     #Bck cleaning 
