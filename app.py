@@ -74,9 +74,9 @@ app=CreateApp()
 if __name__=="__main__":
     # app.run(debug=True,port=5000,host='0.0.0.0')
     # app.run(debug=True,port=5001)
-    if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-        cleaningdb=threading.Thread(target=ClearingData,args=(app,),daemon=True)
-        cleaningdb.start()
-        pass
+    # if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+    #     cleaningdb=threading.Thread(target=ClearingData,args=(app,),daemon=True)
+    #     cleaningdb.start()
+    #     pass
     app.run(debug=True,port=500)
 
