@@ -7,15 +7,16 @@ def __inputval(email,otp):
     
     
 def __Validiator(email,otp):
+    global __Data
     curnt=int(time.time())
     statuscode=400
     if email not in __Data:
         return ["No Record of that email",statuscode]
-    values= globals()['__Data'][email]
+    values= __Data[email]
     if values["OTP"]!=otp:
         return ["Wrong OTP",statuscode]
     if values["ALLOW"]<curnt:
-        global __Data
+        
         del __Data[email]
         return ["Time Exceded",statuscode]
     statuscode=200
