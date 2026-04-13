@@ -32,7 +32,7 @@ def __email_sender(Message):
         cont=ssl.create_default_context()
         GMAIL_SERVER = "smtp.gmail.com"
         try:
-            with smpt.SMTP_SSL(host=GMAIL_SERVER,port=465,context=cont) as server:
+            with smpt.SMTP_SSL(host=GMAIL_SERVER, port=465, context=cont, timeout=10) as server:
                 server.login(email,password)
                 server.send_message(Message)
                 return 1
