@@ -22,7 +22,7 @@ def EmailSearch(email):
         return f"e"
     if Data is None:
         return "User Not Found!!!"
-    return Data.id
+    return (Data.id,Data.Username)
 
 
 

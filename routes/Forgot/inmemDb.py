@@ -24,7 +24,9 @@ def __Validiator(email,otp):
     if  isinstance(code,str):
         return [{"Report":f"Thier has been a error:{code}"},statuscode]
     return [{"Report":"go",
-             "Codeid":code},statuscode]
+             "Codeid":code[0],
+             "username":code[1]
+             },statuscode]
 
 
 def STORAGE(email,otp,action="Create"):
