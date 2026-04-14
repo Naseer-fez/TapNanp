@@ -33,7 +33,7 @@ def updateinfo(id,item):
     Data.item=item
     try:
         db.session.commit()
-        return Data.Id
+        return Data.id
     except Exception as e:
         db.session.rollback()
         logs(e)
