@@ -63,7 +63,9 @@ def CreateApp():
     app.register_blueprint(FrgEmail)
     app.register_blueprint(Chnagepass)
     # #Frontend
-    FrontendURL=os.getenv("FrontendURL")
+    FrontendURL=[url.strip()
+    for url in os.getenv("FrontendURL", "").split(",")
+    if url.strip()]
     Cors=CORS(app,resources={r"/*":{"origins":FrontendURL}})
     #Rate Limiter
     return app
